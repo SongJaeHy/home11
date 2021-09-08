@@ -12,7 +12,7 @@ public class Broadcate {
 	}
 	
 	public void broadcate() {
-		System.out.print("¹æ¼Û ¼ÛÃâ¿ë ");
+		System.out.print("ë°©ì†¡ ì†¡ì¶œìš© ");
 		stage.perform();
 	}
 }

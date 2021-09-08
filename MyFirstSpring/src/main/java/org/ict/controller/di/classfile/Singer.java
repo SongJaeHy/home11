@@ -2,14 +2,14 @@ package org.ict.controller.di.classfile;
 
 import org.springframework.stereotype.Component;
 
-// ÄÄÆ÷³ÍÆ® ½ºÄµ ¹æ½Ä
-// ¾î³ëÅ×ÀÌ¼Ç @Component, @Controller, @Repository, @Service Áß ÇÏ³ª¸¦
-// Å¬·¡½º¸í À§¿¡ ºÙ¿©ÁÖ¸é root-context(bean container)°¡ °¨ÁöÇÏ´Â ¹æ½ÄÀÔ´Ï´Ù.
+//ì»´í¬ë„ŒíŠ¸ ìŠ¤ìº” ë°©ì‹
+//ì–´ë…¸í…Œì´ì…˜ @Component, @Controller, @Repository, @Service ì¤‘ í•˜ë‚˜ë¥¼
+//í´ë˜ìŠ¤ëª… ìœ„ì— ë¶™ì—¬ì£¼ë©´ root-context(bean container)ê°€ ê°ì§€í•˜ëŠ” ë°©ì‹ì…ë‹ˆë‹¤.
 
 @Component
 public class Singer {
 	
 	public void sing() {
-		System.out.println("°Å¼ö°¡ ³ë·¡¸¦ ÇÕ´Ï´Ù.");
+		System.out.println("ê°€ìˆ˜ê°€ ë…¸ë˜ë¥¼ í•©ë‹ˆë‹¤.");
 	}
 }
