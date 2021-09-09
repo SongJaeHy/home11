@@ -1,6 +1,7 @@
 package org.ict.controller;
 
 
+import org.ict.domain.TestVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -161,5 +162,24 @@ public class MvcController {
 		model.addAttribute("num", num);
 	}
 	
+	//원래 파라미터의 자료형이 int, String등이었던 경우는
+	// 단일 자료형이었기 때문에 get, post방식으로 전달되는 데이터를 자동으로
+	// 받아서 처리할 수 있었습니다.
+	// 현재 TestVO 내부에는 int age, String name이 들어있고
+	// TestVO를 아래와 같이 선언하는 것만으로도, int age, String name를 선언하는것과 
+	// 같은 효과를 볼 수 있습니다.
+	// 즉 ?agr=000&name=000 라고 적는 데이터를 받아올 수 있습니다.
+	@RequestMapping(value="/getVO")
+	public String getVO(TestVO vo,Model model) {
+		System.out.println("받아온 객체 : " + vo);
+		
+		// 1. TestVO에 멤버변수를 하나 더 추가해서 객체 3개를 처리하도록 해 주세요.
+		
+		// 2. voview.jsp를 생성해주시고, 거기에 vo내부 멤버변수값을 각각 따로따로
+		// 화면에 표시해주세요.
+		model.addAttribute("vo", vo);
+		
+		return "testvo/voview";
+	}
 	
 }

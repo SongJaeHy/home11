@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>BMI 수치 결과</h1>
-	
-	<h2>당신의 bmi는 ${bmi } 입니다.</h2>
+	<h1>vo내부 데이터</h1>
+	<h2>전체 : ${vo }</h2>
+	<h2>이름 : ${vo.name }</h2>
+	<h2>나이 : ${vo.age }</h2>
+	<h2>핸드 폰: ${vo.phone }</h2>
 </body>
 </html>
