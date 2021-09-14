@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lombok.extern.log4j.Log4j;
+
 // 의존성 주입으로 생성한 Connection Pool 관련 변수를 가져오기 위해서
 
 @RunWith(SpringJUnit4ClassRunner.class)

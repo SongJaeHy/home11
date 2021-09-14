@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import lombok.extern.log4j.Log4j;
 
+
+
 @Log4j
 public class MySQLConnectionTest {
 	private final String DRIVER="com.mysql.cj.jdbc.Driver";

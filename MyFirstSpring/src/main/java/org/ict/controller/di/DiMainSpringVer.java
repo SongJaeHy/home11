@@ -5,7 +5,7 @@ import org.ict.controller.di.classfile.Satellite;
 import org.ict.controller.di.classfile.Singer;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-import javafx.stage.Stage;
+
 
 public class DiMainSpringVer {
 	public static void main(String[] args) {
