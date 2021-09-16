@@ -9,7 +9,8 @@ import org.ict.domain.BoardVO;
 // service계층은, 하나의 메서드가 2개 이상의 쿼리문을 담당할수도 있으며
 // 메서드 하나가 사용자의 하나의 동작단위를 담당합니다.
 public interface BoardService {
-	// 사용자의 동작단위를 기술해보겠습니다
+	
+	// 사용자의 동작단위를 기술해보겠습니다.
 	// 글 등록
 	public void register(BoardVO vo);
 	
@@ -24,4 +25,5 @@ public interface BoardService {
 	
 	// 전체 글 목록
 	public List<BoardVO> getList();
+
 }
