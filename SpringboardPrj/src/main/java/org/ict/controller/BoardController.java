@@ -56,7 +56,7 @@ public class BoardController {
 		// 글을썼으면 상세페이지나 혹은 글목록으로 이동시켜야 합니다.
 		// 1. 글 쓰는 로직 실행후, 다시 목록을 DB에서 꺼내온다음
 		service.register(vo);
-		log.info(vo);
+		log.info("insertSelectkey:"+vo);
 		// 2. list 주소로 강제로 이동시킵니다.
 		// 이동을 시킬때 몇 번 글을 썻는지 안내해주는 로직을 추가합니다.
 		// addFlashAttribute는 redirect시에 컨트롤러에서
@@ -65,7 +65,7 @@ public class BoardController {
 		// 일반 이동이 아닌 redirect 이동시는 데이터가 소실됩니다.
 		// 이를 막기 위해 rttr.addFlashAttribute로 대체합니다.
 		rttr.addFlashAttribute("bno", vo.getBno());
-		
+		rttr.addFlashAttribute("success","register");
 		// views폴더 하위 board폴더의 list.jsp 출력
 		// redirect로 이동시킬때는 "redirect:파일명"
 		return "redirect:/board/list";
