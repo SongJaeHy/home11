@@ -102,7 +102,8 @@ public class BoardControllerTests {
 		log.info(resultRemove);
 	}
 	
-	@Test
+	
+	//@Test
 	public void testModify() throws Exception{
 		
 		// 실제로 실행될 쿼리문과 비교해서 데이터를 날려주시면 됩니다.
@@ -118,5 +119,18 @@ public class BoardControllerTests {
 				.param("writer", "수정된 글쓴이")
 				).andReturn().getModelAndView().getViewName();
 		log.info(resultModify);
+	}
+	
+	@Test
+	public void testGetListPaging() throws Exception {
+		// get방식으로 접속
+		// .param을 이용해 criteria 관련 정보 전달
+		
+		String resultPaging = mockMvc.perform(
+				MockMvcRequestBuilders.get("/board/list")
+				.param("pageNum", "30")
+				.param("amount", "10")
+				).andReturn().getModelAndView().getViewName();
+		log.info(resultPaging);
 	}
 }

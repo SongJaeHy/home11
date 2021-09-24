@@ -3,6 +3,7 @@ package org.ict.service;
 import java.util.List;
 
 import org.ict.domain.BoardVO;
+import org.ict.domain.Criteria;
 
 // 서비스 계층은, 하나의 동작을 담당합니다.
 // mapper계층에서 하나의 메서드가 하나의 쿼리문만을 담당했는데
@@ -26,7 +27,8 @@ public interface BoardService {
 	// 전체 글 목록
 	public List<BoardVO> getList(String keyword);
 	
-	
+	// 페이징 처리
+	public List<BoardVO> getListPaging(Criteria cri);
 	
 
 }

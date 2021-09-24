@@ -36,6 +36,10 @@ public class PhotoController {
 	}
 	@RequestMapping(value="requestupload1")
 	public String requestupload1(MultipartHttpServletRequest mtfRequest) {
+		
+		
+		
+		
 		return "redirect:/";
 		
 	}

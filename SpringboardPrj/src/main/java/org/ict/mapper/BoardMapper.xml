@@ -73,4 +73,17 @@
 		UPDATE board_tbl SET title=#{title}, content=#{content}, writer=#{writer}, updatedate=sysdate WHERE bno=#{bno}
 	</update>
 	
+	<!-- getListPaging을 완성시켜보세요. -->
+	<select id="getListPaging" resultType="org.ict.domain.BoardVO">
+	<!-- *로 조회하면 rn까지 포함하므로 깔끔하게 rn없이
+	 -->
+		<![CDATA[
+		SELECT bno, title, content, writer, regdate, updatedate FROM
+		(SELECT /*+INDEX_DESC (board_tbl pk_board)*/
+		rownum rn, board_tbl.*
+		FROM board_tbl WHERE rownum <= #{pageNum} * #{amount}) bt
+		WHERE rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+	
 </mapper>

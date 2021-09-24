@@ -3,6 +3,7 @@ package org.ict.mapper;
 import java.sql.Connection;
 
 import org.ict.domain.BoardVO;
+import org.ict.domain.Criteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class BoardMapperTests {
 	//@Test
 	public void testGetList() {
 		// mapper 내부의 getList 메서드를 호출하려면?
-		log.info(mapper.getList());
+		log.info(mapper.getList(""));
 	}
 	
 	// insert를 실행할 테스트코드를 하단에 작성해보겠습니다.
@@ -62,7 +63,7 @@ public class BoardMapperTests {
 		mapper.delete(4L);
 	}
 	
-	@Test
+	//@Test
 	public void testUpdate() {
 		// BoardVO를 먼저 생성해서 바꿀 내역을 저장한 다음
 		// 파라미터에 전달
@@ -74,5 +75,16 @@ public class BoardMapperTests {
 		vo.setBno(5L);
 		
 		mapper.update(vo);
+	}
+	
+	@Test
+	public void testgetPaging() {
+		// 페이지 코드를 이용해서 원하는 번호의 페이지가 잘 출력되는지
+		// 확인해주세요.
+		Criteria cri = new Criteria(5, 10);
+		
+		// getListPaging을 호출할 때 Criteria가 필요하므로 위에 선언
+		mapper.getListPaging(cri);
+		
 	}
 }
