@@ -76,5 +76,11 @@ public class BoardServiceImpl implements BoardService{
 		List<BoardVO> boards = mapper.getListPaging(cri);
 		return boards;
 	}
+	
+	@Override
+	public int getTotal() {
+		log.info("get total count");
+		return mapper.getTotalCount();
+	}
 
 }

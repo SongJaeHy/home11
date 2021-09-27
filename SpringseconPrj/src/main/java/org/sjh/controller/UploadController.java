@@ -14,4 +14,7 @@ public class UploadController {
 		
 		log.info("upload form");
 	}
+	
+	@PostMapping("/uploadFormAction")
+	
 }

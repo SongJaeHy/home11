@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.ict.domain.BoardVO;
 import org.ict.domain.Criteria;
+import org.ict.domain.PageDTO;
 import org.ict.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,9 +53,22 @@ public class BoardController {
 	// 기존에 받던 자료에 더해서, Criteria를 추가로 더 입력받습니다.
 	@GetMapping("/list")
 	public void list(Model model, Criteria cri) {
-		log.info("list로직 접속");
+		
+		// pageNum, amount 로 전달된 자료를 활용해
+		// 게시글 목록을 가져오기
 		List<BoardVO> boards = service.getListPaging(cri);
 		
+		// 페이지 밑에 깔아줄 페이징버튼 관현 정보 생성
+		// 단순히 페이지버튼 깔리는지 여부를 테스트할때는
+		// 우선 글 갯수를 정확하게 모르므로 230개를 임의로 넣고
+		// 까는 버튼 개수는 최대 10개로 고정
+		// 1. mapper 내부에 전체 글 개수를 가져오는 로직 추가
+		// 2. 전체 글 개수를 얻어와서 현재 PageDTO의 총 글 개수 위치에
+		// 	  DB에서 그때그때 조회해온 총 글 개수를 넣도록 코드를 수정해주세요.
+		int total = service.getTotal();
+		PageDTO btnMaker = new PageDTO(cri, total, 10);
+		// 버튼 관현 정보도 같이 넘겨줌.
+		model.addAttribute("btnMaker", btnMaker);
 		model.addAttribute("list", boards);
 		// board/list.jsp로 자동연결이 되므로
 		// 리턴구문을 필요없습니다.
