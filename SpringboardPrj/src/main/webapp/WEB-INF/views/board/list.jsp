@@ -11,7 +11,7 @@
 </head>
 <body>
 	
-	<h1 class="text text-primary">게시물 목록</h1>
+	<h1 class="text text-primary text-center">게시물 목록</h1>
 	<table class="table table-success table-striped">
 	<tread>
 		<tr>
@@ -25,7 +25,7 @@
 		<c:forEach var="board" items="${list}">
 			<tr>
 				<td>${board.bno }</td>
-				<td><a href="/board/get?bno=${board.bno}">${board.title }</a></td>
+				<td><a href="/board/get?bno=${board.bno}&page=${cri.page}&searchType=${cri.searchType}&keyword=${cri.keyword}">${board.title }</a></td>
 				<td>${board.writer }</td>
 				<td>${board.regdate }</td>
 				<td>${board.updatedate }</td>
@@ -41,7 +41,7 @@
   			<!-- prev버튼 
   			btnMaker의 prev기 true일때만 뒤로가기 버튼 출력-->
   			<c:if test="${btnMaker.prev}">
-    			<li class="page-item"><a class="page-link" href="/board/list?pageNum=${btnMaker.startPage - 1}">Previous</a>
+    			<li class="page-item"><a class="page-link" href="/board/list?pageNum=${btnMaker.startPage - 1}&searchType=${btnMaker.cri.searchType}&keyword=${btnMaker.cri.keyword}">Previous</a>
     			</li>
     		</c:if>
     		<!-- 번호버튼 
@@ -56,17 +56,52 @@
     		-->
     		<c:forEach begin="${btnMaker.startPage}" end="${btnMaker.endPage }"
     		var="pageNum">
-  	 	 		<li class="page-item ${btnMaker.cri.pageNum == pageNum ? 'active' : '' }"><a class="page-link" href="/board/list?pageNum=${pageNum}">${pageNum}</a></li>
+  	 	 		<li class="page-item ${btnMaker.cri.pageNum == pageNum ? 'active' : '' }">
+  	 	 		<a class="page-link" href="/board/list?pageNum=${pageNum}&searchType=${btnMaker.cri.searchType}&keyword=${btnMaker.cri.keyword}">${pageNum}</a></li>
     		</c:forEach>
     		<!-- next버튼 -->
     		<c:if test="${btnMaker.next }">
-    		<li class="page-item"><a class="page-link" href="/board/list?pageNum=${btnMaker.startPage + 10 }">Next</a></li>
+    		<li class="page-item"><a class="page-link" href="/board/list?pageNum=${btnMaker.startPage + 10 }&searchType=${btnMaker.cri.searchType}&keyword=${btnMaker.cri.keyword}">Next</a></li>
     		</c:if>
   		</ul>
 	</nav>
-	<a href="/board/register"><button type="button" class="btn btn-success">글쓰기</button></a>
+	<a href="/board/register">
+	<button type="button" class="btn btn-success">글쓰기</button></a>
+	
+	<!-- 검색창 -->
 	<form action="/board/list" method="get">
-		<input type="text" name="keyword" placeholder="검색어" value="${keyword }">
+	<!-- option태그를 이용해 검색조건 선택창 만들어주세요. -->
+	<select name="searchType">
+		<option value="n"
+		<c:out value="${btnMaker.cri.searchType == null ? 'selected' : '' }"/>>
+		-
+		</option>
+		<option value="t"
+		<c:out value="${btnMaker.cri.searchType eq 't' ? 'selected' : '' }"/>>
+		제목
+		</option>
+		<option value="c"
+		<c:out value="${btnMaker.cri.searchType eq 'c' ? 'selected' : '' }"/>>
+		본문
+		</option>
+		<option value="w"
+		<c:out value="${btnMaker.cri.searchType eq 'w' ? 'selected' : '' }"/>>
+		글쓴이
+		</option>
+		<option value="tc"
+		<c:out value="${btnMaker.cri.searchType eq 'tc' ? 'selected' : '' }"/>>
+		제목+본문
+		</option>
+		<option value="cw"
+		<c:out value="${btnMaker.cri.searchType eq 'cw' ? 'selected' : '' }"/>>
+		본문+글쓴이
+		</option>
+		<option value="tcw"
+		<c:out value="${btnMaker.cri.searchType eq 'tcw' ? 'selected' : '' }"/>>
+		제목+본문+글쓴이
+		</option>
+	</select>
+		<input type="text" name="keyword" placeholder="검색어" value="${btnMaker.cri.keyword }" >
 		<input type="submit" value="검색하기">
 	</form>
 	

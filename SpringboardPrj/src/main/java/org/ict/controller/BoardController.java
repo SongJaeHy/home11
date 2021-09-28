@@ -5,6 +5,7 @@ import java.util.List;
 import org.ict.domain.BoardVO;
 import org.ict.domain.Criteria;
 import org.ict.domain.PageDTO;
+import org.ict.domain.SearchCriteria;
 import org.ict.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,7 +53,7 @@ public class BoardController {
 	// 페이징 처리용 메서드는 기존과 접속주소는 같으나
 	// 기존에 받던 자료에 더해서, Criteria를 추가로 더 입력받습니다.
 	@GetMapping("/list")
-	public void list(Model model, Criteria cri) {
+	public void list(Model model, SearchCriteria cri) {
 		
 		// pageNum, amount 로 전달된 자료를 활용해
 		// 게시글 목록을 가져오기
@@ -65,9 +66,12 @@ public class BoardController {
 		// 1. mapper 내부에 전체 글 개수를 가져오는 로직 추가
 		// 2. 전체 글 개수를 얻어와서 현재 PageDTO의 총 글 개수 위치에
 		// 	  DB에서 그때그때 조회해온 총 글 개수를 넣도록 코드를 수정해주세요.
-		int total = service.getTotal();
+		int total = service.getTotal(cri);
 		PageDTO btnMaker = new PageDTO(cri, total, 10);
 		// 버튼 관현 정보도 같이 넘겨줌.
+		// btnMaker를 넘기면 동시에 SearchCriteria도 같이넘어감
+		// 단, btnMaker 내부 멤버변수로 SearchCriteria가 있기 때문에
+		// 클래스 내부 변수로 클래스를 넣은 형태라 호출이 2단계로 이루어짐
 		model.addAttribute("btnMaker", btnMaker);
 		model.addAttribute("list", boards);
 		// board/list.jsp로 자동연결이 되므로
