@@ -44,7 +44,7 @@ public class TestController {
 		return list;
 	}
 	
-	@RequestMapping("sendMap")
+	@RequestMapping("/sendMap")
 	public Map<Integer, TestVO> sendMap(){
 		
 		Map<Integer, TestVO> map = new HashMap<>();
@@ -59,7 +59,7 @@ public class TestController {
 		return map;
 	}
 	
-	@RequestMapping("sendErrorAuth")
+	@RequestMapping("/sendErrorAuth")
 	public ResponseEntity<Void> sendListAuth(){
 		
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
