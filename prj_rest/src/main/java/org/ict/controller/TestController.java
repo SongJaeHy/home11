@@ -56,15 +56,25 @@ public class TestController {
 			vo.setAge(50+i);
 			map.put(i,  vo);
 		}
+		// map의 키값(왼쪽에 선언한것)은 중복된 값이 들어올 수 없고
+		// 들어온가면 가장 마지막에 넣은 하나만 남습니다.
+		//TestVO vo = new TestVO();
+		//vo.setName("강아");
+		
+		System.out.println(map);
 		return map;
 	}
 	
 	@RequestMapping("/sendErrorAuth")
 	public ResponseEntity<Void> sendListAuth(){
 		
+		// ResponseEntity는 생성자에 HttpStatus.코드번호
+		// 를 적어서 해당 주소 접속시 어떤 접속코드를 사용자에게 넘뎌줄지
+		// 결정할 수 있습니다.
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
+	// 데이터와 결과코드를 같이 전송하는 케이스
 	@RequestMapping("/sendErrorNot")
 	public ResponseEntity<List<TestVO>> sendListNot(){
 		
@@ -76,6 +86,8 @@ public class TestController {
 			vo.setAge(20 + i);
 			list.add(vo);
 		}
+		// ResponseEntity의 생성자에, 파라미터 2개를 넘기면
+		// 전송할 데이터와 전송시 결과로 나올 코드를 함께 넘길수 있습니다.
 		return new ResponseEntity<List<TestVO>>(list, HttpStatus.NOT_FOUND);
 	}
 }
