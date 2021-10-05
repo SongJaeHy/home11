@@ -57,6 +57,7 @@
 		var bno = 23;
 		
 		// 비동기 코드
+		// 글 쓰기
 		$("#replyAddBtn").on("click", function(){
 			var replyer = $("#newReplyWriter").val();
 			var reply = $("#newReply").val();
@@ -84,23 +85,23 @@
 				}
 			})
 		});
+		
+		// 글 삭제 로직
 		$("#replyDelBtn").on("click", function(){
-			var rno = $("#.modal-title").val();
-			var reply = $("#reply").val();
+			// 삭제에 필요한 댓글번호 모달 타이틀 부분에서 얻기
+			var rno = $(".modal-title").html();
 			
 			$.ajax({
 				type : 'delete',
-				url : '/replies/',
-				headers: {
-					"Content-Type": "application/json",
-					"X-HTTP-Method-Override":"POST"
-				},
-				dataType : 'text',
+				url : '/replies/' + rno,
+				// 전달 데이터가 없이 url과 호출타입만으로 삭제처리하므로
+				// 이외 정보는 제공할 필요가 없음
 				success : function(result){
 					console.log("result:" + result);
-					if(result == 'SUCCESS'){
-						alert("삭제 되었습니다.");
-						$("#modDiv").gide("slow")
+					if(result === 'SUCCESS'){
+						alert(rno + "번 댓글이 삭제되었습니다.");
+						// 댓글 삭제 후 모달창 닫고 새 댓글목록 갱신
+						$("#modDiv").hide("slow")
 						// 댓글 쓰고 나서 다시 새롭게 갱신된 목록을
 						// 넣어주도록 전체 댓글 목록 다시 조회
 						getAllList();
@@ -108,10 +109,14 @@
 				}
 			})
 		});
+		
+		// 글 수정 로직
 		$("#replyModBtn").on("click", function(){
-			var rno = $("#.modal-title").val();
-			var reply = $("#reply").val();
-			
+			// rno(수정에 필요한 댓글번호 모달 타이틀 부분에서 얻기)
+			var rno = $(".modal-title").html();
+			// 수정에 필요한 본문내역을 #reply의 value값으로 얻기
+			var reply = $("#replytext").val();
+			console.log(reply);
 			$.ajax({
 				type : 'patch',
 				url : '/replies/' + rno,
@@ -119,14 +124,13 @@
 					"Content-Type": "application/json",
 					"X-HTTP-Method-Override":"PATCH"
 				},
-				contentType: "application/json",
-				data : JSON.stringify({reply:reply}),
 				dataType : 'text',
+				data : JSON.stringify({reply:reply}),
 				success : function(result){
-					console.log("result:" + result);
-					if(result == 'SUCCESS'){
-						alert("수정 되었습니다.");
-						$("#modDiv").gide("slow")
+					if(result === 'SUCCESS'){
+						alert(rno + "번 댓글이 수정되었습니다.");
+						// 댓글 삭제 후 모달창 닫고 새 댓글목록 갱신
+						$("#modDiv").hide("slow")
 						// 댓글 쓰고 나서 다시 새롭게 갱신된 목록을
 						// 넣어주도록 전체 댓글 목록 다시 조회
 						getAllList();
