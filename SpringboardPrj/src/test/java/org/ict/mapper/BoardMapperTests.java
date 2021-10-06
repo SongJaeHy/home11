@@ -1,7 +1,5 @@
 package org.ict.mapper;
 
-import java.sql.Connection;
-
 import org.ict.domain.BoardVO;
 import org.ict.domain.Criteria;
 import org.junit.Test;
@@ -12,12 +10,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lombok.extern.log4j.Log4j;
 
+// 테스트코드 기본세팅(RunWith, ContextConfiguration, Log4j)해주세요.
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration(
+		"file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class BoardMapperTests {
-	
-	// 이테스트코드 내에서는 Mapper테스트를 담당합니다.
+
+	// 이 테스트코드 내에서는 Mapper테스트를 담당합니다.
 	// 따라서 BoardMapper내부의 메서드를 실행할 예정이고
 	// BoardMapper 타입의 변수가 필요하니
 	// 선언해주시고 자동 주입으로 넣어주세요.
@@ -48,19 +48,22 @@ public class BoardMapperTests {
 		vo.setContent("새로넣는본문");
 		vo.setWriter("새로넣는글쓴이");
 		
+		//log.info(vo);
 		mapper.insert(vo);
 	}
+	
 	
 	//@Test
 	public void testSelect() {
 		// 있는 글번호 입력시 데이터 출력
-		log.info(mapper.select(6L));
+		mapper.select(6L);
 	}
 	
 	//@Test
 	public void testDelete() {
 		// mapper.delete() 호출시 삭제
-		mapper.delete(4L);
+		mapper.delete(3L);
+		
 	}
 	
 	//@Test
@@ -72,19 +75,25 @@ public class BoardMapperTests {
 		vo.setTitle("바꾼제목");
 		vo.setContent("바꾼본문");
 		vo.setWriter("바꾼글쓴이");
-		vo.setBno(5L);
+		vo.setBno(4L);
 		
 		mapper.update(vo);
 	}
 	
+	
 	@Test
 	public void testgetPaging() {
-		// 페이지 코드를 이용해서 원하는 번호의 페이지가 잘 출력되는지
+		// 페이징 코드를 이용해서 원하는 번호의 페이지가 잘 출력되는지
 		// 확인해주세요.
-		Criteria cri = new Criteria(5, 10);
-		
+		// 5페이지에 글 10개씩 조회
+		Criteria cri = new Criteria(3251, 20);
 		// getListPaging을 호출할 때 Criteria가 필요하므로 위에 선언
 		mapper.getListPaging(cri);
 		
 	}
+	
+	
+	
+	
+	
 }

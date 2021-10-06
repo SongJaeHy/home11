@@ -28,10 +28,11 @@ public interface BoardService {
 	// 전체 글 목록
 	public List<BoardVO> getList(String keyword);
 	
-	// 페이징 처리
+	// 페이징 글 목록
 	public List<BoardVO> getListPaging(SearchCriteria cri);
 	
-	// 전체 글 개수
-	public int getTotal(SearchCriteria cri);
+	// 전체 글 개수 가져오기
+	public int getTotalBoard(SearchCriteria cri);
+	
 
 }

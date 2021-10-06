@@ -16,16 +16,17 @@ import lombok.extern.log4j.Log4j;
 // 서버 가동 없이 테스트하기 위해 작성합니다.
 // 아래에 기본 세팅을 해주세요.
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration(
+	"file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class BoardServiceTests {
-	
+
 	// 다형성 원리에 의해서 BoardService로 만들어도
 	// BoardServiceImpl 이 주입됨
 	@Autowired
-	private BoardService service;
+	private BoardService service;//=null;
 	
-	// 서비스가 제대로 주입되었는지 여부만 확인해봅니다.
+	// 먼저 서비스가 제대로 주입되었는지 여부만 확인해봅니다.
 	//@Test
 	public void testExist() {
 		log.info(service);
@@ -37,12 +38,12 @@ public class BoardServiceTests {
 	//@Test
 	public void testRegister() {
 		// register로직이 BoardVO를 필요로 하므로
-		// 몬조 vo부터 생성해서 자료 입력 후 전달함
+		// 먼저 vo부터 생성해서 자료 입력 후 전달함
 		BoardVO vo = new BoardVO();
 		
-		vo.setTitle("서비스 작성글");
-		vo.setContent("서비스 본문글");
-		vo.setWriter("서비스 작성자");
+		vo.setTitle("서비스작성글");
+		vo.setContent("서비스본문글");
+		vo.setWriter("서비스작성자");
 		
 		service.register(vo);
 	}
@@ -54,7 +55,7 @@ public class BoardServiceTests {
 	
 	//@Test
 	public void testGet() {
-		service.get(3L);
+		service.get(7L);
 	}
 	
 	//@Test
@@ -63,24 +64,29 @@ public class BoardServiceTests {
 		// 전달하기 때문에 BoardVO를 만들어놓고 자료를 저장한뒤 실행합니다.
 		BoardVO vo = new BoardVO();
 		
-		vo.setTitle("서비스 수정된 글");
+		vo.setBno(1L);
+		vo.setTitle("서비스 수정된 글제목");
 		vo.setContent("서비스 수정된 글본문");
 		vo.setWriter("서비스 수정된 글쓴이");
-		vo.setBno(1L);
 		
 		service.modify(vo);
 	}
 	
 	//@Test
 	public void testRemove() {
-		service.remove(7L);
+		service.remove(5L);
 	}
 	
 	@Test
 	public void testGetListPaging() {
-		Criteria cri = new Criteria(5, 10);
-		
+		Criteria cri = new Criteria(216, 10);
 		service.getListPaging(cri);
 	}
 	
+	
+	
 }
+
+
+
+

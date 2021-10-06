@@ -21,6 +21,10 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class MybatisTests {
 
+	
+	// Connection => OJDBC 담당
+	// DataSource => HikariCP 담당
+	// SqlSessionFactory => Mybatis 담당
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 	
@@ -28,10 +32,13 @@ public class MybatisTests {
 	public void testMybatis() {
 		try(SqlSession session = sqlSessionFactory.openSession();
 				Connection con = session.getConnection();){
+			
 			log.info(con);
 			log.info(session);
+			
 		}catch(Exception e) {
 			fail(e.getMessage());
 		}
 	}
+	
 }
