@@ -59,7 +59,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<!-- 코드는 위에서 아래로 실행되므로 ajax스크립트 태그는 맨 아래에 -->
 	<script>
-		var bno = 23;
+		var bno = 44444;
 		
 		// 비동기 코드
 		// 글쓰기 부분

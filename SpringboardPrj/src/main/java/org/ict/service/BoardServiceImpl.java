@@ -30,7 +30,9 @@ public class BoardServiceImpl implements BoardService {
 	public void register(BoardVO vo) {
 		log.info("등록 작업 실행");
 		// mapper.insert(vo); 에서 bno를 얻기위해 변경
+		
 		mapper.insertSelectKey(vo);
+		
 	}
 
 	// 전체 글을 다 가져오는게 아닌 특정 글 하나만 가져오는 로직을

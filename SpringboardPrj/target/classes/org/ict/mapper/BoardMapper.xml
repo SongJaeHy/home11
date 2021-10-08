@@ -124,7 +124,7 @@
 	<!-- 수정을 위해 조건에 구애받지 않는 공통쿼리와
 	조건별로 추가해야하는 조건별 쿼리를 따로 지정합니다. -->
 		<![CDATA[
-		SELECT bno, title, content, writer, regdate, updatedate FROM
+		SELECT bno, title, content, writer, regdate, updatedate, replycount FROM
 		(SELECT
 		/*+ INDEX_DESC(board_tbl pk_board) */
 		rownum rn, board_tbl.* FROM board_tbl 
@@ -152,7 +152,11 @@
 			<include refid="search"></include>
 		bno > 0
 	</select>
-	
+	<update id="uupdateReplyCount">
+		UPDATE board_tbl
+			SET
+		replycount = replycount + #{amount} where bno = #{bno}
+	</update>
 </mapper>
 
 
