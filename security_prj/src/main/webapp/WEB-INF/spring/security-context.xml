@@ -3,42 +3,51 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security 
-	http://www.springframework.org/schema/security/spring-security.xsd
-	http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans.xsd">
+		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!-- 커스텀 클래스 빈 저장 -->
 	<bean id="customAccessDenied" class="org.ict.security.CustomAccessDeniedHandler" />
-	<bean id="customLoginSuccess" class="org.ict.security.CustomLoginSuccessHandler" />
-	
+	<bean id="customLoginSuccess" class="org.ict.security.CustomLoginSuccessHander" />
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+
+	<!-- http영역 -->
 	<security:http>
-		
-		<!-- /secu/all 접속시 모든 유저에게 접근 허용 -->
+	
+		<!-- /secu/all 접속시 가로채서 검사하도록 처리 -->
 		<security:intercept-url pattern="/secu/all" access="permitAll"/>
 		
-		<!-- /secu/memeber는 Member에게만 접근 허용 -->
-		<security:intercept-url pattern="/secu/member" access="hasRole('ROLE_MEMBER')"/>
+		<!-- /secu/member는 MEMBER에게만 허용 -->
+		<security:intercept-url pattern="/secu/member" access="hasRole('ROLE_MEMBER')"/> 
+	
+		<!-- /secu/admin는 ADMIN에게만 허용 -->
+		<security:intercept-url pattern="/secu/admin" access="hasRole('ROLE_ADMIN')"/> 
+	
+		<security:form-login login-page="/customLogin" 
+			authentication-success-handler-ref="customLoginSuccess" />
 		
-		<!-- /secu/admin은 admin에게만 접근 허용 -->
-		<security:intercept-url pattern="/secu/admin" access="hasRole('ROLE_ADMIN')"/>
-		
-		<security:form-login login-page="/customLogin"
-		authentication-success-handler-ref="customLoginSuccess"/>
-		
-		<!--  <security:access-denied-handler error-page="/accessError" />-->
+		<!-- <security:access-denied-handler error-page="/accessError"/> -->
 		<security:access-denied-handler ref="customAccessDenied"/>
-		
-		<security:logout logout-url="/customLogout" invalidate-session="true" />
-		
+	
+		<security:logout logout-url="/customLogout" invalidate-session="true"/>
+	
 	</security:http>
 	
+	<!-- 인증영역 -->
 	<security:authentication-manager>
-		
+	
 		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
-				<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN"/>
-			</security:user-service>
+			<!--  <security:user-service>
+			  	<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
+				<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER,ROLE_ADMIN"/>
+			</security:user-service>-->
+			<security:jdbc-user-service data-source-ref="dataSource"/>
+			
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+			
 		</security:authentication-provider>
-		
+	
 	</security:authentication-manager>
+	
 </beans>

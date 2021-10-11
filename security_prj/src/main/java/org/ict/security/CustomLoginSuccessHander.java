@@ -15,12 +15,15 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
+public class CustomLoginSuccessHander implements AuthenticationSuccessHandler {
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		// TODO Auto-generated method stub
+		
+		// 로그인 성공시 어떤 권한인지 체크하기 위해 부여받은 권한(들)을 불러오기
+		// ROLE_ADMIN의 경우는 ROLE_MEMBER가 함께 부여되기 때문에 경우에 따라
+		// 권한은 여럿이 될 수도 있음.
 		log.warn("로그인 성공");
 		List<String> roleList = new ArrayList<>();
 		
@@ -28,18 +31,18 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 			roleList.add(role.getAuthority());
 		}
 		
+		// roleList에 포함된 권한을 통해 로그인 계정의 권한에 따라 처리
 		log.warn("부여받은 권한들 : " + roleList);
 		if(roleList.contains("ROLE_ADMIN")) {
 			response.sendRedirect("/secu/admin");
 			return;
 		}
 		if(roleList.contains("ROLE_MEMBER")) {
-			response.sendRedirect("/secu/membber");
+			response.sendRedirect("/secu/member");
 			return;
 		}
 		
 		response.sendRedirect("/");
-		
 	}
 
 }

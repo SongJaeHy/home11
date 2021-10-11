@@ -1,4 +1,3 @@
-
 package org.ict.controller;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/secu/*")
 @Controller
 public class SecurityController {
+
 	
 	@GetMapping("/all")
 	public void doAll() {
@@ -24,6 +24,6 @@ public class SecurityController {
 	
 	@GetMapping("/admin")
 	public void doAdmin() {
-		log.info("운영자만 접속 가능한 admin 로직");
+		log.info("운영자만 접속 가능한 admin로직");
 	}
 }

@@ -62,7 +62,10 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
-		<!--  <scope>runtime</scope>-->
+			<!-- 1. log4j 1.2.17로 업그레이드
+				 2. 하단 excutions태그 전부 삭제 
+				 3.마지막 scope 태그 주석처리-->
+			<!-- <scope>runtime</scope> -->
 		</dependency>
 
 		<!-- @Inject -->
@@ -97,80 +100,110 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>        
-				<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-tx</artifactId>
+		    <artifactId>spring-test</artifactId>
 		    <version>5.0.7.RELEASE</version>
+		    <scope>test</scope>
 		</dependency>
-				<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-jdbc</artifactId>
 		    <version>5.0.7.RELEASE</version>
 		</dependency>
-				<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+				        
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-tx</artifactId>
 		    <version>5.0.7.RELEASE</version>
 		</dependency>
-			<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+						        
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
 		<dependency>
 		    <groupId>com.zaxxer</groupId>
 		    <artifactId>HikariCP</artifactId>
 		    <version>4.0.3</version>
 		</dependency>
-				<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+				        
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis</artifactId>
 		    <version>3.5.6</version>
 		</dependency>
-				<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+						        
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis-spring</artifactId>
 		    <version>2.0.6</version>
 		</dependency>
-				<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
+			
+		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
 		<dependency>
 		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
 		    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
 		    <version>1.16</version>
 		</dependency>
-				<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+			
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
-		    <version>1.18.18</version>
+		    <version>1.18.20</version>
 		    <scope>provided</scope>
 		</dependency>
+			
 		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
 		<dependency>
 		    <groupId>com.oracle.database.jdbc</groupId>
 		    <artifactId>ojdbc8</artifactId>
 		    <version>18.15.0.0</version>
 		</dependency>
+		        
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.13.0-rc2</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		    <version>2.13.0-rc2</version>
+		</dependency>
+		        
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-web</artifactId>
 		    <version>5.0.7.RELEASE</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-config</artifactId>
 		    <version>5.0.7.RELEASE</version>
 		</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-core</artifactId>
 		    <version>5.0.7.RELEASE</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
@@ -179,8 +212,8 @@
 		</dependency>
 
 
-
-		
+	        
+		        
 	</dependencies>
     <build>
         <plugins>
@@ -201,7 +234,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
