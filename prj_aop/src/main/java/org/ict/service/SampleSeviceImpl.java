@@ -10,4 +10,10 @@ public class SampleSeviceImpl implements SampleService{
 		return Integer.parseInt(str1) + Integer.parseInt(str2);
 	}
 
+	@Override
+	public void introduce() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
