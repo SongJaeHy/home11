@@ -15,17 +15,23 @@
  		<!-- 로그인 안한(익명)사용자인경우 -->
  		<a href="/customLogin">로그인</a>
  	</sec:authorize>
+
  	<sec:authorize access="isAuthenticated()">
- 		<!--  로그인 한(인증된)사용자인경우 -->
- 		<!--  로그인한 유저는 XX님 환영합니다 라고 추가로 화면에 인사말을 출력해주세요 -->
- 		<sec:authentication property="principal.member.userName"/>님 환영합니다.<br/>
+ 		<!-- 로그인 한(인증된)사용자인경우 -->
+ 		<!-- 로그인한 유저는 XX님 환영합니다 라고 추가로 화면에 인사말을 출력해주세요. -->
+ 		<sec:authentication property="principal.member.userName"/>님 환영합니다<br/>
  		
- 		<!--  c태그라이브러리의 if를 이용해 운영자25만 너무 반갑습니다. 
+ 		<!-- c태그라이브러리의 if를 이용해 운영자25만 "너무 반갑습니다." 
  		아래와 같이 var 속성을 지정하면 property의 정보를 var 변수명에 저장합니다.-->
  		<sec:authentication property="principal" var="secuInfo"/>
- 		${secuInfo }
  		
+ 		${secuInfo.member.userName }<br>
+ 		<c:if test="${secuInfo.member.userName eq '운영자25' }">
+ 			너무 반갑습니다.<br>
+ 		</c:if>
+ 		 		
  		<a href="/customLogout">로그아웃</a>
  	</sec:authorize>
+ 	
 </body>
 </html>
