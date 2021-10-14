@@ -152,11 +152,12 @@
 			<include refid="search"></include>
 		bno > 0
 	</select>
-	<update id="uupdateReplyCount">
-		UPDATE board_tbl
-			SET
+	<update id="updateReplyCount">
+		update board_tbl
+		set
 		replycount = replycount + #{amount} where bno = #{bno}
 	</update>
+	
 </mapper>
 
 
