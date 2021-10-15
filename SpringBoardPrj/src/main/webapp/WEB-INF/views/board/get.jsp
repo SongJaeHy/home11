@@ -21,6 +21,24 @@
 		padding: 10px;
 		z-index:1000;
 	}
+	/* uploadResult 결과뭉 css*/
+	.uploadResult{
+		width:100%;
+		background-color:gray;
+	}
+	.uploadResult ul {
+		display:flex;
+		flex-flow:row;
+		justify-content:center;
+		align-items: center;
+		}
+	.uploadResult ul li {
+	list-style: none;
+	padding: 10px;
+	}
+	.uploadResult ul li img{
+		width: 20px;
+		}
 </style>
 </head>
 <body>
@@ -56,7 +74,16 @@
 		<input type="submit" value="수정">
 	</form>
 	
+	<!-- 첨부파일추가 -->
 	<hr>
+	<div class="row">
+		<h3 class="text-primary">첨부파일</h3>
+		<div id="uploadResult">
+			<ul>
+			
+			</ul>
+		</div>
+	</div>
 	<h2>댓글 영역</h2>
 		
 	<!-- 3. 모달창, 기타 ajax 호출 로직을 가져와서 실제로 작동하는지
@@ -75,7 +102,6 @@
 	
 	</ul>
 	
-	
 	<!-- 모달 요소는 안 보이기 때문에 어디 넣어도 되지만 보통 html요소들 끼리 놨을때
 	제일 아래쪽에 작성하는 경우가 많습니다. -->
 	<div id="modDiv" style="display:none;">
@@ -93,6 +119,7 @@
 	<!-- 2. body태그 하단에 <script>태그 작성 후 var bno = ${vo.bno}로 글 번호를
 	받은 다음 function getAllList()를 test.jsp에서 복붙해서 게시물별 페이지에서
 	잘 작동하는지 확인도 해주세요. -->
+	
 	<script>
 		var bno = ${vo.bno};
 		
@@ -257,6 +284,41 @@
 			$("#modDiv").hide("slow");
 		});
 		
+		(function(){
+			// getJson의 두 번째 파라미터로 ?bno=bno값을 대체
+			$.getJSON("/board/getAttachList", {bno:bno}, function(arr){
+				console.log(arr);
+				
+				// ul태그 내부에 태그를 추가해야하기 때문에 문자열 이용
+				var str="";
+				
+				$(arr).each(function(i, attach){
+					// image type
+					if(attach.image){
+					var fileCallPath = encodeURIComponent(
+							attach.uploadPath + "/"
+							+ attach.uuid + "_" + attach.fileName);
+					
+					str +="<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid
+						+ "' data-filename='" + attach.fileName + "' data-type='" + attach.image
+						+ "'><div<a href='/download?fileName=" + fileCallPath 
+						+"'> <div>" + "<img src='/display?fileName=" + fileCallPath + "'>"
+						+ "</div>"
+						+"</li>";
+					}else{
+						str += 
+							"<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid
+							+ "' data-filename='" + attach.fileName + "' data-type='" + attach.image
+							+"'><div>"
+							+"<span> " + attach.fileName + "</span><br>" 
+							+ "<img src='/resources/attatchment.png' width='100px' height='100px'>"
+							+ "</div>"
+							+ "</li>";
+					}
+				}); //end forEach
+				$("#uploadResult ul").html(str);
+			}); //end getJSON
+		})(); //end anonymous
 		
 	</script>
 	

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.rg/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.damoyo.mapper.Photocategory">
+	<insert id="insert">
+		insert into photo_category(p_cate_num, p_cate_name, m_num)
+		VALUES(p_category_num.nextval, #{p_cate_name}, #{m_num})
+	</insert>
+	
+	<update id="update">
+	 UPDATE photo_category
+	 SET p_num = #{p_num} p_cate_num={p_cate_num}
+	 WHERE p_num=#{p_num}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM photo_category WHERE p_num = #{p_num}
+	</delete>
+
+</mapper>

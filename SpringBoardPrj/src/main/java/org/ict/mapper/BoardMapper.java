@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.ict.domain.BoardAttachVO;
 import org.ict.domain.BoardVO;
 import org.ict.domain.Criteria;
 import org.ict.domain.SearchCriteria;
@@ -55,6 +56,9 @@ public interface BoardMapper {
 	public int getTotalBoard(SearchCriteria cri);
 	
 	public void updateReplyCount(@Param("bno") Long bno, @Param("amount") Long amount);
+	
+	
+	public List<BoardAttachVO> getAttachList(Long bno);
 }
 
 

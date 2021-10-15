@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.rg/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="photo_like">
+
+<select parameterType="HashMap" resultType="int" id="countbyLike">
+SELECT COUNT(p_like_num) as cnt FROM photo_like WHERE p_num=#{p_num} AND m_num=#{m_num} 
+</select>
+
+<insert parameterType="HashMap" id="create">
+INSERT INTO photo_like(p_like_num, m_num, p_num, u_id)VALUES 
+((SELECT NVL(MAX(p_like_num), 0) + 1 as p_like_num FROM photo_like),#{m_num}, #{p_num}, 0) 
+</insert>
+
+<update parameterType="HashMap" id="like_check">
+UPDATE photo_like SET p_like_num = p_like_num + 1 WHERE m_num=#{m_num} AND p_num=#{p_num} 
+</update>
+
+<update parameterType="HashMap" id="like_check_cancel"> 
+UPDATE photo_like SET like_check = 0WHERE mno=#{mno} AND boardno=#{boardno} 
+</update>
+
+<select parameterType="HashMap" resultType="LiketoVO" id="read">
+SELECT p_like_num, p_num, m_num, u_id FROM photo_like
+WHERE p_num=#{p_num} AND m_num=#{m_num} 
+</select>
+
+<delete parameterType="Long" id="deletebyBoardno">
+DELETE FROM photo_like WHERE p_num=#{p_num} </delete>
+
+<delete parameterType="Long" id="deletebyMno">
+DELETE FROM photo_like WHERE m_num=#{m_num} </delete>
+
+</mapper>

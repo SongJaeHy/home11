@@ -2,17 +2,22 @@ package org.ict.controller;
 
 import java.util.List;
 
+import org.ict.domain.BoardAttachVO;
 import org.ict.domain.BoardVO;
 import org.ict.domain.Criteria;
 import org.ict.domain.PageDTO;
 import org.ict.domain.SearchCriteria;
 import org.ict.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jdk.internal.module.IllegalAccessLogger.Mode;
@@ -106,6 +111,7 @@ public class BoardController {
 		// 1. 글 쓰는 로직 실행후
 		service.register(vo);
 		log.info("insertSelectKey확인 : " + vo);
+
 		// 2. list 주소로 강제로 이동을 시킵니다.
 		// 이동을 시킬때 몇 번 글을 썻는지 안내해주는 로직을 추가합니다.
 		// addFlashAttribute는 redirect시에 컨트롤러에서
@@ -116,6 +122,11 @@ public class BoardController {
 		rttr.addFlashAttribute("bno", vo.getBno());
 		rttr.addFlashAttribute("success", "register");
 		
+		log.info("===================");
+		log.info("register: " + vo);
+		if(vo.getAttachList() != null) {
+			vo.getAttachList().forEach(attach -> log.info(attach));
+		}
 		// views폴더 하위 board폴더의 list.jsp 출력
 		// redirect로 이동시킬때는 "redirect:파일명"
 		return "redirect:/board/list";
@@ -223,7 +234,11 @@ public class BoardController {
 		return "/board/modify";
 	}
 	
-	
+	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
+		return new ResponseEntity<>(service.getAttachList(bno), HttpStatus.OK);
+	}
 	
 	
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.rg/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.damoyo.mapper.PhotocommentMapper">
+	<select id="getList" resultType="com.damoyo.domain.PhotocommentsVO">
+	SELECT * FROM photocomments
+	WHERE p_comment_num = #{p_comment_num}
+	ORDER BY p_num DESC
+	</select>
+	
+	<insert id="create">
+		INSERT INTO photocomments (p_num,p_comment_content, p_comment_num)
+		VALUES (#{p_num}. #{p_comment_content}, #{p_comment_num})
+	</insert>
+	
+	<update id="update">
+		UPDATE photocomments
+			SET
+		p_comment_content = #{p_commnt_content}
+		WHERE m_num = #{m_num}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM photocomments
+		WHERE p_num = #{p_num}
+	</delete>
+	
+
+	
+
+</mapper>
