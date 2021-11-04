@@ -98,8 +98,8 @@
 	$(".itemSection").on("click", ".orderBtn", function(){
 		itemPrice = $(this).parent().siblings(".itemPrice").children().attr("data-price");
 		itemTitle = $(this).parent().siblings(".itemTitle").children().text();
-		d = new Date();
-		merchant_uid = "order" + d.getTime();
+		d = new Date(); // 현 시간
+		merchant_uid = "order" + d.getTime(); // 현시간을 유닉스시간으로 변경해 order에 붙임
 		
 		iamport();
 	});

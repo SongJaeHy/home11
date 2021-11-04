@@ -55,13 +55,13 @@ public class HomeController {
 	}
 	
 	@ResponseBody
-	@PostMapping(value="/order", consumes="application/json",
-	produces= {MediaType.TEXT_PLAIN_VALUE})
+	@PostMapping(value="/order", consumes="application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
 	
 	public ResponseEntity<String> orderInsert(@RequestBody PayVO vo){
 		logger.info("VO검증" + vo);
 		service.insertPay(vo);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
+	
 	
 }
