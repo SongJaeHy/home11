@@ -40,7 +40,7 @@ public class HandlerChat extends TextWebSocketHandler {
 					// 채팅 서버에 접속한 전원 목록 가져오기
 					Map<String, Object> mapSessionList = sessionList.get(i);
 					// room_id, session 추출
-					String room_id = (String)mapSessionList.get("room_id");
+					String room_id = (String) mapSessionList.get("room_id");
 					WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
 					
 					// 메세지를 보내야 하는 방만 얻어옵니다.
@@ -51,6 +51,7 @@ public class HandlerChat extends TextWebSocketHandler {
 						mapToSend.put("room_id", room_id);
 						mapToSend.put("cmd", "CMD_ENTER");
 						mapToSend.put("msg", session.getId() + "님이 입장 했습니다.");
+						System.out.println(session.getId() + "님이 입장 했습니다.");
 						
 						// JSON으로 바꾼다음
 						String jsonStr = objectMapper.writeValueAsString(mapToSend);
@@ -78,7 +79,7 @@ public class HandlerChat extends TextWebSocketHandler {
 						mapToSend.put("cmd", "CMD_MSG_SEND");
 						// 메세지를 실어서
 						mapToSend.put("msg", session.getId() + " : " + mapReceive.get("msg"));
-						
+						System.out.println(session.getId() + "메세지를 전송했습니다.");
 						String jsonStr = objectMapper.writeValueAsString(mapToSend);
 						// 데이터 전송하기
 						sess.sendMessage(new TextMessage(jsonStr));
@@ -98,8 +99,8 @@ public class HandlerChat extends TextWebSocketHandler {
 		String current_room_id = "";
 		
 		for(int i=0; i< sessionList.size(); i++) {
-			Map<String, Object>map = sessionList.get(i);
-			String room_id = (String)map.get("room_id");
+			Map<String, Object> map = sessionList.get(i);
+			String room_id = (String) map.get("room_id");
 			WebSocketSession sess = (WebSocketSession) map.get("session");
 			
 			if(session.equals(sess)) {
@@ -119,6 +120,7 @@ public class HandlerChat extends TextWebSocketHandler {
 					mapToSend1.put("room_id1", room_id);
 					mapToSend1.put("cmd", "CMD_EXIT");
 					mapToSend1.put("msg", session.getId() + "님이 퇴장 했습니다.");
+					System.out.println(session.getId() + "퇴장 했습니다.");
 					
 					String jsonStr = objectMapper.writeValueAsString(mapToSend1);
 					sess.sendMessage(new TextMessage(jsonStr));

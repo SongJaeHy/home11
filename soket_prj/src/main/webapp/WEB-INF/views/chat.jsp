@@ -10,27 +10,29 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 	<script type="text/javascript">
 		var webSocket = {
-				init: function(param){
+				init: function(param) {
 					this._url = param.url;
 					this._initSocket();
 				},
-			sendChat: function(){
+			sendChat: function() {
 				this._sendMessage('${param.room_id}', 'CMD_MSG_SEND', $('#message').val());
 				$('#message').val('');
 			},
-			sendEnter: function(){
+			sendEnter: function() {
 				this._sendMessage('${param.room_id}', 'CMD_ENTER', $('#message').val());
-				$('message').val('');
+				$('#message').val('');
 			},
 			receiveMessage: function(msgData){
 				
-				if(magData.cmd == 'CMD_MSG_SEND'){
+				// 정의된 CMD 코드에 따라서 분기 처리
+				if(msgData.cmd == 'CMD_MSG_SEND'){
 					$('#divChatData').append('<div>' + msgData.msg + '</div>');
 				}
+				// 입장
 				else if(msgData.cmd == 'CMD_ENTER'){
 					$('#divChatData').append('<div>' + msgData.msg + '</div>');
 				}
-				
+				// 퇴장
 				else if(msgData.cmd == 'CMD_EXIT'){
 					$('#divChatData').append('<div>' + msgData.msg + '</div>');
 				}
@@ -38,7 +40,7 @@
 			closeMessage: function(str){
 				$('#divChatData').append('<div>' + '연결 끊김 : ' + str + '</div>');
 			},
-			disconnect : function(){
+			disconnect: function(){
 				this._socket.close();
 			},
 			_initSocket: function(){
